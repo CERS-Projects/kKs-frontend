@@ -1,16 +1,19 @@
-import { Outlet } from "react-router-dom";
+import { Outlet } from "react-router";
 import { Flex } from "@chakra-ui/react";
-import { Header } from "@/components/header/Header";
+import { Layout } from "@/components/layout/layout";
 
 export const ErrorBoundary = () => {
   return <div>Something went wrong!</div>;
 };
 
-export const AppRoot = () => {
+const AppRoot = () => {
   return (
     <Flex h="100vh" w="auto" direction="column">
-      <Header />
-      <Outlet />
+      <Layout>
+        <Outlet />
+      </Layout>
     </Flex>
   );
 };
+
+export default AppRoot;

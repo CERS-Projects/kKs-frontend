@@ -1,36 +1,52 @@
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { useMemo } from "react";
-import { AppRoot, ErrorBoundary, Top } from "@/app/routes/app/index";
-import { NotFound } from "./routes/not-found";
-import { Welcome } from "./routes/welcome";
+import AppRoot, { ErrorBoundary } from "@/app/routes/app/root";
 import { paths } from "@/config/paths";
 
-const createAppRouter = () =>
+import { QueryClient, useQueryClient } from "@tanstack/react-query";
+import { createBrowserRouter } from "react-router";
+import { RouterProvider } from "react-router-dom";
+import { Spinner } from "@/components/ui/spinner";
+
+const convert = (queryClient: QueryClient) => (m: any) => {
+  const { clientLoader, clientAction, default: Component, ...rest } = m;
+  return {
+    ...rest,
+    loader: clientLoader?.(queryClient),
+    action: clientAction?.(queryClient),
+    Component,
+  };
+};
+
+const createAppRouter = (queryClient: QueryClient) =>
   createBrowserRouter([
     {
       path: paths.welcome.path,
-      element: <Welcome />,
+      hydrateFallbackElement: <Spinner />,
+      lazy: () => import("./routes/welcome").then(convert(queryClient)),
     },
     {
       path: paths.app.root.path,
       element: <AppRoot />,
+      hydrateFallbackElement: <Spinner />,
       ErrorBoundary: ErrorBoundary,
       children: [
         {
           path: paths.app.top.path,
-          element: <Top />,
+          lazy: () => import("./routes/app/top").then(convert(queryClient)),
         },
         {},
       ],
     },
     {
       path: "*",
-      element: <NotFound />,
+      lazy: () => import("./routes/not-found").then(convert(queryClient)),
     },
   ]);
 
 export const AppRouter = () => {
-  const router = useMemo(() => createAppRouter(), []);
+  const queryClient = useQueryClient();
+
+  const router = useMemo(() => createAppRouter(queryClient), [queryClient]);
 
   return <RouterProvider router={router} />;
 };

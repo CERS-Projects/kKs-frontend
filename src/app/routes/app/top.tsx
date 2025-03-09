@@ -1,7 +1,7 @@
 import { Flex, Icon } from "@chakra-ui/react";
 import { PiBookBookmarkFill } from "react-icons/pi";
 
-export const Top = () => {
+const Top = () => {
   return (
     <Flex id="top" h="100vh" w="100%">
       <Flex
@@ -30,3 +30,5 @@ export const Top = () => {
     </Flex>
   );
 };
+
+export default Top;
