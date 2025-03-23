@@ -2,12 +2,31 @@ import { Flex, Box, Text, Icon } from "@chakra-ui/react";
 import { TiPinOutline, TiPin } from "react-icons/ti";
 import { CiChat1 } from "react-icons/ci";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { ThreadData } from "../types/thread";
+import { paths } from "@/config/paths";
 
-export const Thread = () => {
+type Props = {
+  thread: ThreadData;
+};
+
+export const ThreadBox = ({ thread }: Props) => {
   const [isPinned, setIsPinned] = useState(false);
+  const navigate = useNavigate();
 
-  const handlePinClick = () => {
+  const handlePinClick = (event: React.MouseEvent<SVGSVGElement>) => {
+    event.stopPropagation();
     setIsPinned(!isPinned);
+  };
+
+  const handleComment: React.MouseEventHandler<HTMLDivElement> = (event) => {
+    event.stopPropagation();
+  };
+
+  const handleNavigate = () => {
+    navigate(paths.app.thread.getHref(thread.id), {
+      state: { thread, isPinned },
+    });
   };
 
   return (
@@ -18,6 +37,7 @@ export const Thread = () => {
       p="3"
       w="100%"
       bgColor="white"
+      onClick={handleNavigate}
     >
       <Flex
         direction="row"
@@ -25,14 +45,16 @@ export const Thread = () => {
         wordBreak="break-word"
       >
         <Flex direction="column" gap="2" paddingLeft="3">
-          <Text>
-            aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-          </Text>
-          <Flex direction="row" gap="3" borderRadius="full">
-            <Box borderRadius="full" _hover={{ bg: "gray.200" }}>
+          <Text>{thread.title}</Text>
+          <Flex direction="row" gap="1" borderRadius="full">
+            <Box
+              borderRadius="full"
+              _hover={{ bg: "gray.200" }}
+              onClick={handleComment}
+            >
               <CiChat1 color="green" size={"30"} />
             </Box>
-            {1}
+            {thread.comments}
           </Flex>
         </Flex>
         <Icon

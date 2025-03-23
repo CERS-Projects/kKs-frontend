@@ -10,11 +10,14 @@ export const SearchBox = () => {
           <LuSearch color="green" />
         </Box>
       }
-      m="2%"
       w="90%"
-      bgColor="white"
     >
-      <Input border="md" borderColor="#90EE90" />
+      <Input
+        placeholder="スレッドを検索..."
+        border="md"
+        borderColor="#90EE90"
+        bgColor="white"
+      />
     </InputGroup>
   );
 };
