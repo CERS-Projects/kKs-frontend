@@ -8,7 +8,7 @@ export const ErrorBoundary = () => {
 
 const AppRoot = () => {
   return (
-    <Flex h="100vh" w="auto" direction="column">
+    <Flex w="100vw" direction="column">
       <Layout>
         <Outlet />
       </Layout>

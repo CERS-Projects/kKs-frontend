@@ -21,8 +21,8 @@ export const ReturnTopButton = ({ topElementId }: Props) => {
       id="to-top"
       borderRadius="full"
       onClick={() => toTop(topElementId)}
-      bg="gray.100"
-      _hover={{ bg: "gray.200" }}
+      bg="white"
+      _hover={{ bg: "gray.100" }}
       w="60px"
       h="60px"
     >

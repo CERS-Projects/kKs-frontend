@@ -8,7 +8,7 @@ export const Header = () => {
   return (
     <Heading
       position="sticky"
-      h="90px"
+      h="75px"
       minW="20%"
       w="100%"
       borderBottomWidth="2px"
