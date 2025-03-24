@@ -4,6 +4,16 @@ export const paths = {
     getHref: () => "/",
   },
 
+  login: {
+    path: "/login",
+    getHref: () => "/login",
+  },
+
+  signup: {
+    path: "/signup",
+    getHref: () => "/signup",
+  },
+
   auth: {},
 
   app: {
