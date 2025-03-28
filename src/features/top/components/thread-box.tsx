@@ -1,22 +1,21 @@
 import { Flex, Box, Text, Icon } from "@chakra-ui/react";
 import { TiPinOutline, TiPin } from "react-icons/ti";
 import { CiChat1 } from "react-icons/ci";
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ThreadData } from "../types/thread";
 import { paths } from "@/config/paths";
 
 type Props = {
   thread: ThreadData;
+  addBookmark: (id: number) => void;
 };
 
-export const ThreadBox = ({ thread }: Props) => {
-  const [isPinned, setIsPinned] = useState(false);
+export const ThreadBox = ({ thread, addBookmark }: Props) => {
   const navigate = useNavigate();
 
   const handlePinClick = (event: React.MouseEvent<SVGSVGElement>) => {
     event.stopPropagation();
-    setIsPinned(!isPinned);
+    addBookmark(thread.id);
   };
 
   const handleComment: React.MouseEventHandler<HTMLDivElement> = (event) => {
@@ -25,7 +24,7 @@ export const ThreadBox = ({ thread }: Props) => {
 
   const handleNavigate = () => {
     navigate(paths.app.thread.getHref(thread.id), {
-      state: { thread, isPinned },
+      state: { thread },
     });
   };
 
@@ -66,7 +65,11 @@ export const ThreadBox = ({ thread }: Props) => {
           _hover={{ bg: "gray.100" }}
           _active={{ bg: "gray.200" }}
         >
-          {isPinned ? <TiPin color="green" /> : <TiPinOutline color="green" />}
+          {thread.isPinned ? (
+            <TiPin color="green" />
+          ) : (
+            <TiPinOutline color="green" />
+          )}
         </Icon>
       </Flex>
     </Box>

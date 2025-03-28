@@ -11,13 +11,11 @@ import { v4 as uuid } from "uuid";
 
 const Thread = () => {
   const location = useLocation();
-  const { thread } = location.state as { thread: ThreadData };
-  const pinState = location.state as { isPinned: boolean };
-  const [isPinned, setIsPinned] = useState(pinState.isPinned);
+  const [thread, setThread] = useState<ThreadData>(location.state.thread);
 
   const handlePinClick = (event: React.MouseEvent<SVGSVGElement>) => {
     event.stopPropagation();
-    setIsPinned(!isPinned);
+    setThread({ ...thread, isPinned: !thread.isPinned });
   };
 
   const comments_mock: CommentData[] = [
@@ -63,7 +61,7 @@ const Thread = () => {
               _hover={{ bg: "gray.100" }}
               _active={{ bg: "gray.200" }}
             >
-              {isPinned ? (
+              {thread.isPinned ? (
                 <TiPin color="green" />
               ) : (
                 <TiPinOutline color="green" />
@@ -78,7 +76,7 @@ const Thread = () => {
             justifyContent="space-between"
             alignItems="center"
           >
-            <Text>投稿日 {thread.posted_time.toLocaleString()}</Text>
+            <Text>投稿日 {thread?.posted_time?.toLocaleString()}</Text>
             <Tooltip
               content="スレッドにコメントする"
               positioning={{ placement: "bottom-end" }}

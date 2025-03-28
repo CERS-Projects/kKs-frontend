@@ -5,7 +5,7 @@ import { paths } from "@/config/paths";
 import { QueryClient, useQueryClient } from "@tanstack/react-query";
 import { createBrowserRouter } from "react-router";
 import { RouterProvider } from "react-router-dom";
-import { Spinner } from "@/components/ui/spinner";
+import { LoadingSpinner } from "@/components/ui/spinner";
 
 const convert = (queryClient: QueryClient) => (m: any) => {
   const { clientLoader, clientAction, default: Component, ...rest } = m;
@@ -21,13 +21,13 @@ const createAppRouter = (queryClient: QueryClient) =>
   createBrowserRouter([
     {
       path: paths.welcome.path,
-      hydrateFallbackElement: <Spinner />,
+      hydrateFallbackElement: <LoadingSpinner />,
       lazy: () => import("./routes/welcome").then(convert(queryClient)),
     },
     {
       path: paths.app.root.path,
       element: <AppRoot />,
-      hydrateFallbackElement: <Spinner />,
+      hydrateFallbackElement: <LoadingSpinner />,
       ErrorBoundary: ErrorBoundary,
       children: [
         {

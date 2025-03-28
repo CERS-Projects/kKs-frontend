@@ -5,4 +5,5 @@ export type ThreadData = {
   posted_time: Date;
   contents: string;
   comments: number;
+  isPinned: boolean;
 };

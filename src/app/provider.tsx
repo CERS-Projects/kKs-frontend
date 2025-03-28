@@ -1,6 +1,6 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import * as React from "react";
-import { Spinner } from "@/components/ui/spinner";
+import { LoadingSpinner } from "@/components/ui/spinner";
 import { queryConfig } from "@/lib/react-query";
 
 type AppProviderProps = {
@@ -16,7 +16,7 @@ export const AppProvider = ({ children }: AppProviderProps) => {
     <React.Suspense
       fallback={
         <div className="flex h-screen w-screen items-center justify-center">
-          <Spinner />
+          <LoadingSpinner />
         </div>
       }
     >
