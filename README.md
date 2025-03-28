@@ -1,1 +1,1 @@
-# welcome画面
+# welcome画面_新規登録
