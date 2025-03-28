@@ -1,15 +1,11 @@
 import { Heading } from "@chakra-ui/react";
 import { Logo } from "@/components/layout/logo";
-import { Button, Flex, VStack, Box } from "@chakra-ui/react";
-import { useNavigate } from "react-router";
+import { Button, VStack, Box } from "@chakra-ui/react";
+import { Link } from "react-router";
+import { paths } from "@/config/paths";
 
-const welcome = () =>{
 
-  const navigate = useNavigate();
-
-  const handleClick = (query:string) => {
-    navigate(query);
-  };
+const Welcome = () =>{
   
   return(
   <VStack>
@@ -35,15 +31,17 @@ const welcome = () =>{
     bg='gray.200'
     padding={20}
     >
-    <Flex>
-      <VStack>
-        <Button size='2xl' colorPalette='green' onClick={ () => handleClick("signup") }> 新規登録 </Button>
-        <Button size='2xl'colorPalette='green'onClick={ () => handleClick("login") }> ログイン </Button>
-      </VStack>
-    </Flex>
+    <VStack>
+      <Link to={paths.signup.getHref()}>
+        <Button size='2xl' colorPalette='green'> 新規登録 </Button>
+      </Link>
+      <Link to={paths.login.getHref()}>
+        <Button size='2xl' colorPalette='green'> ログイン </Button>
+      </Link>
+    </VStack>
   </Box>
   </VStack>
     
   );
 }
-export default welcome;
+export default Welcome;

@@ -1,9 +1,9 @@
 import { Text } from "@chakra-ui/react";
 
-const login = () =>{
+const Login = () =>{
     return(
         <Text> ログイン </Text>
     );
 };
 
-export default login
+export default Login
